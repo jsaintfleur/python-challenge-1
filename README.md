@@ -84,7 +84,7 @@ Item name                 | Price  | Quantity
 Cookie                    | $0.99  | 2        
 
 Total: $1.98
-
+```
 
 ## References
 
