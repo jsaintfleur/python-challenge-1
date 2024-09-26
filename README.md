@@ -23,7 +23,7 @@ The main file in this repository is **`menu.py`**, which contains the Python cod
 
 1. Clone the repository to your local machine:
     ```bash
-    git clone https://github.com/your-username/python-challenge-1.git
+    git clone https://github.com/jsaintfleur/python-challenge-1.git
     ```
 
 2. Navigate to the cloned repository:
