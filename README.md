@@ -5,7 +5,7 @@
 ### Overview
 This project is an interactive ordering system for The Variety Food Truck, built using Python. The program allows customers to browse through a menu, place their orders, and receive a printed receipt with the total price of all items ordered.
 
-The main file in this repository is `menu.py`, which contains the Python code for running the ordering system.
+The main file in this repository is [menu.py](https://github.com/jsaintfleur/python-challenge-1/blob/main/menu.py), which contains the Python code for running the ordering system.
 
 ### Features
 - A menu with various categories such as **Snacks**, **Meals**, **Drinks**, and **Dessert**.
@@ -15,7 +15,7 @@ The main file in this repository is `menu.py`, which contains the Python code fo
 - Option to **modify or remove** items from the order.
 
 ### File Structure
-- [menu.py](https://github.com/jsaintfleur/python-challenge-1/blob/main/menu.py): This file contains the main logic for the ordering system, including the menu, input prompts, order processing, and receipt generation.
+- `menu.py`: This file contains the main logic for the ordering system, including the menu, input prompts, order processing, and receipt generation.
 
 ### Getting Started
 
