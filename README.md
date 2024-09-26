@@ -15,7 +15,7 @@ The main file in this repository is `menu.py`, which contains the Python code fo
 - Option to **modify or remove** items from the order.
 
 ### File Structure
-- `menu.py`: This file contains the main logic for the ordering system, including the menu, input prompts, order processing, and receipt generation.
+- [menu.py](https://github.com/jsaintfleur/python-challenge-1/blob/main/menu.py): This file contains the main logic for the ordering system, including the menu, input prompts, order processing, and receipt generation.
 
 ### Getting Started
 
