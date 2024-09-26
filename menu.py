@@ -53,6 +53,63 @@ menu = {
 # Initialize an empty list to store the order
 order = []
 
+# Function to print the receipt dynamically with alignment
+def print_receipt(order):
+    print("\nThis is what we are preparing for you:\n")
+    print("Item name                 | Price  | Quantity")
+    print("--------------------------|--------|----------")
+
+    # Loop through the items in the customer's order
+    total_cost = 0
+    for item in order:
+        item_name = item["Item name"]
+        price = item["Price"]
+        quantity = item["Quantity"]
+
+        # Calculate the number of spaces for each column to ensure proper alignment
+        num_item_spaces = 26 - len(item_name)
+        item_spaces = " " * num_item_spaces
+
+        price_spaces = " " * (7 - len(f"${price:.2f}"))
+        quantity_spaces = " " * (8 - len(str(quantity)))
+
+        # Print the item details in the required format
+        print(f"{item_name}{item_spaces}| ${price:.2f}{price_spaces}| {quantity}{quantity_spaces}")
+
+        total_cost += price * quantity
+
+    print(f"\nTotal: ${total_cost:.2f}")
+
+# Function to allow modification of an order
+def modify_order(order):
+    print("\nHere are the items in your order:")
+    for idx, item in enumerate(order, start=1):
+        print(f"{idx}: {item['Item name']} (Quantity: {item['Quantity']}, Price per item: ${item['Price']})")
+
+    item_to_modify = input("\nEnter the number of the item you'd like to modify, or type 'cancel' to return: ")
+
+    if item_to_modify.lower() == 'cancel':
+        return
+
+    if item_to_modify.isdigit() and 1 <= int(item_to_modify) <= len(order):
+        idx = int(item_to_modify) - 1
+        action = input(f"Would you like to 'remove' or 'update' the quantity of {order[idx]['Item name']}? ").lower()
+
+        if action == "remove":
+            order.pop(idx)
+            print("Item removed from your order.")
+        elif action == "update":
+            new_quantity = input(f"Enter the new quantity for {order[idx]['Item name']}: ")
+            if new_quantity.isdigit():
+                order[idx]["Quantity"] = int(new_quantity)
+                print(f"Updated {order[idx]['Item name']} to {new_quantity} quantity.")
+            else:
+                print("Invalid quantity. No changes were made.")
+        else:
+            print("Invalid action. Returning to order.")
+    else:
+        print("Invalid item selection.")
+
 # Launch the store and present a greeting to the customer
 print("Welcome to The Variety Food Truck.")
 
@@ -159,37 +216,16 @@ while place_order:
         # Tell the customer they didn't select a number
         print("\nYou didn't select a number.")
 
-    # Ask the customer if they would like to keep ordering
-    keep_ordering = input("\nWould you like to keep ordering? (Y)es or (N)o ").lower()
+    # Ask the customer if they would like to keep ordering or modify their order
+    keep_ordering = input("\nWould you like to (C)ontinue ordering, (M)odify your order, or (F)inish? ").lower()
 
-    # 5. Check the customer's input
-    if keep_ordering == 'n':
-        place_order = False
+    if keep_ordering == 'f':
+        # Print the receipt and end the order
         print("\nThank you for your order.")
-    elif keep_ordering != 'y':
-        print("\nInvalid input. Please enter 'Y' or 'N'.")
-
-# Print the final receipt with proper alignment
-print("\nThis is what we are preparing for you:\n")
-print("Item name                 | Price  | Quantity")
-print("--------------------------|--------|----------")
-
-# Loop through the items in the customer's order
-for item in order:
-    item_name = item["Item name"]
-    price = item["Price"]
-    quantity = item["Quantity"]
-
-    # Calculate the number of spaces for each column to ensure proper alignment
-    num_item_spaces = 26 - len(item_name)
-    item_spaces = " " * num_item_spaces
-    
-    price_spaces = " " * (7 - len(f"${price:.2f}"))
-    quantity_spaces = " " * (8 - len(str(quantity)))
-
-    # Print the item details in the required format
-    print(f"{item_name}{item_spaces}| ${price:.2f}{price_spaces}| {quantity}{quantity_spaces}")
-
-# Calculate and print the total cost
-total_cost = sum(item["Price"] * item["Quantity"] for item in order)
-print(f"\nTotal: ${total_cost:.2f}")
+        print_receipt(order)
+        place_order = False
+    elif keep_ordering == 'm':
+        # Modify the existing order
+        modify_order(order)
+    elif keep_ordering != 'c':
+        print("\nInvalid input. Please enter 'C', 'M', or 'F'.")
