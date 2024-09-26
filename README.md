@@ -1,5 +1,3 @@
-# python-challenge-1
-
 ## The Variety Food Truck Ordering System - Python Challenge
 
 ### Overview
