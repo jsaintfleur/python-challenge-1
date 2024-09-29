@@ -60,25 +60,24 @@ def print_receipt(order):
     print("--------------------------|--------|----------")
 
     # Loop through the items in the customer's order
-    total_cost = 0
     for item in order:
         item_name = item["Item name"]
         price = item["Price"]
         quantity = item["Quantity"]
 
-        # Calculate the number of spaces for each column to ensure proper alignment
+        # Calculate the number of spaces for alignment
         num_item_spaces = 26 - len(item_name)
         item_spaces = " " * num_item_spaces
 
         price_spaces = " " * (7 - len(f"${price:.2f}"))
         quantity_spaces = " " * (8 - len(str(quantity)))
 
-        # Print the item details in the required format
+        # Print each order in the required format
         print(f"{item_name}{item_spaces}| ${price:.2f}{price_spaces}| {quantity}{quantity_spaces}")
 
-        total_cost += price * quantity
-
-    print(f"\nTotal: ${total_cost:.2f}")
+    # List comprehension to calculate the total price
+    total_price = sum(item['Price'] * item['Quantity'] for item in order)
+    print(f"\nTotal: ${total_price:.2f}")
 
 # Function to allow modification of an order
 def modify_order(order):
@@ -140,7 +139,9 @@ while place_order:
         # Check if the customer's input is a valid option
         if int(menu_category) in menu_items.keys():
             # Save the menu category name to a variable
-            menu_category_name = menu_items[int(menu_category)]
+            menu_category_name = menu_items[int
+
+(menu_category)]
             # Print out the menu category name they selected
             print(f"\nYou selected {menu_category_name}")
 
@@ -219,13 +220,16 @@ while place_order:
     # Ask the customer if they would like to keep ordering or modify their order
     keep_ordering = input("\nWould you like to (C)ontinue ordering, (M)odify your order, or (F)inish? ").lower()
 
-    if keep_ordering == 'f':
-        # Print the receipt and end the order
-        print("\nThank you for your order.")
-        print_receipt(order)
-        place_order = False
-    elif keep_ordering == 'm':
-        # Modify the existing order
-        modify_order(order)
-    elif keep_ordering != 'c':
-        print("\nInvalid input. Please enter 'C', 'M', or 'F'.")
+    match keep_ordering:
+        case 'f':
+            # Print the receipt and end the order
+            print("\nThank you for your order.")
+            print_receipt(order)
+            place_order = False
+        case 'm':
+            # Modify the existing order
+            modify_order(order)
+        case 'c':
+            continue
+        case _:
+            print("\nInvalid input. Please enter 'C', 'M', or 'F'.")
