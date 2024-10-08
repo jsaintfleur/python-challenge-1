@@ -50,7 +50,7 @@ menu = {
     }
 }
 
-# 1. Set up order list. Order list will store a list of dictionaries for menu item name, item price, and quantity ordered.
+# 1. Set up order list
 order_list = []
 
 # Launch the store and present a greeting to the customer
@@ -67,7 +67,7 @@ while place_order:
     # Create a dictionary to store the menu for later retrieval
     menu_items = {}
 
-    # Print the options to choose from menu headings (all the first level dictionary items in menu).
+    # Print the options to choose from menu headings (all the first-level dictionary items in menu).
     for key in menu.keys():
         print(f"{i}: {key}")
         # Store the menu category associated with its menu item number
@@ -162,19 +162,17 @@ while place_order:
         # Ask the customer if they would like to order anything else
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ").lower()
 
-        # Check the customer's input
-        if keep_ordering == 'y':
-            # Keep ordering
-            place_order = True
-            break
-        elif keep_ordering == 'n':
-            # Complete the order
-            print("Thank you for your order.")
-            place_order = False
-            break
-        else:
-            # Tell the customer to try again
-            print("Please try again by typing 'Y' or 'N'.")
+        # Use match-case for handling responses
+        match keep_ordering:
+            case 'y':
+                place_order = True
+                break
+            case 'n':
+                print("Thank you for your order.")
+                place_order = False
+                break
+            case _:
+                print("Please try again by typing 'Y' or 'N'.")
 
 # Print out the customer's order
 print("\nThis is what we are preparing for you.\n")
